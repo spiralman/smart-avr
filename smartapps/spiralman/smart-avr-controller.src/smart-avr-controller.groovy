@@ -24,8 +24,7 @@ def deviceDiscovery() {
   def options = [:]
   def devices = getVerifiedDevices()
   devices.each {
-    log.debug "Device info ${it.value}"
-    def value = it.value.name ?: "UPnP Device ${it.value.ssdpUSN.split(':')[1][-3..-1]}"
+    def value = it.value.name ?: "Denon ${it.value.model}"
     def key = it.value.mac
     options["${key}"] = value
   }
@@ -127,8 +126,8 @@ def addDevices() {
 
     if (!d) {
       log.debug "Creating Generic UPnP Device with dni: ${selectedDevice.value.mac}"
-      addChildDevice("smartthings", "Generic UPnP Device", selectedDevice.value.mac, selectedDevice?.value.hub, [
-        "label": selectedDevice?.value?.name ?: "Generic UPnP Device",
+      addChildDevice("spiralman", "Smart AVR Device", selectedDevice.value.mac, selectedDevice?.value.hub, [
+        "label": selectedDevice?.value?.name ?: "Denon AVR Receiver",
         "data": [
           "mac": selectedDevice.value.mac,
           "ip": selectedDevice.value.networkAddress,
