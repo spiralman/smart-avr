@@ -71,20 +71,18 @@ def off() {
 // gets the address of the device
 private getHostAddress() {
   def ip = getDataValue("ip")
-  def port = getDataValue("port")
 
-  if (!ip || !port) {
+  if (!ip) {
     def parts = device.deviceNetworkId.split(":")
     if (parts.length == 2) {
       ip = parts[0]
-      port = parts[1]
     } else {
       log.warn "Can't figure out ip and port for device: ${device.id}"
     }
   }
 
   log.debug "Using IP: $ip and port: $port for device: ${device.id}"
-  return convertHexToIP(ip) + ":" + convertHexToInt(port)
+  return convertHexToIP(ip)
 }
 
 private Integer convertHexToInt(hex) {
