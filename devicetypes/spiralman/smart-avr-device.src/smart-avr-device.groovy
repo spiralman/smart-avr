@@ -55,8 +55,8 @@ def sync(ip, port) {
 }
 
 def on() {
-  httpGet({uri: "http://${proxyIp}:${proxyPort}/avr/command",
-           query: {cmd: "PWON"}}) {
+  httpGet([uri: "http://${proxyIp}:${proxyPort}/avr/command",
+           query: [cmd: "PWON"]]) {
     resp ->
       log.debug "Got response: ${resp.body}"
   }
