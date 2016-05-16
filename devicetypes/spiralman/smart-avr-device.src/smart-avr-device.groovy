@@ -16,13 +16,25 @@ metadata {
   tiles {
     standardTile("switch", "device.switch", width: 1, height: 1,
                  canChangeIcon: true) {
-      state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off"
-      state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on"
+      state "off", label: '${name}', action: "switch.on",
+                                       icon: "st.switches.switch.off",
+                                       backgroundColor: '#ffffff'
+      state "on", label: '${name}', action: "switch.off",
+                                       icon: "st.switches.switch.on",
+                                       backgroundColor: '#79b821'
     }
 
     main "switch"
     details "switch"
   }
+}
+
+def getProxyIp() {
+  return getDataValue("ip")
+}
+
+def getProxyPort() {
+  return getDataValue("port")
 }
 
 // parse events into attributes
@@ -43,6 +55,11 @@ def sync(ip, port) {
 }
 
 def on() {
+  httpGet({uri: "http://${proxyIp}:${proxyPort}/avr/command",
+           query: {cmd: "PWON"}}) {
+    resp ->
+      log.debug "Got response: ${resp.body}"
+  }
 }
 
 def off() {
