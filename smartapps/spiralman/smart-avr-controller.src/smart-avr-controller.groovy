@@ -10,12 +10,11 @@ definition(
 
 
 preferences {
-	page(name: "searchTargetSelection", title: "UPnP Search Target", nextPage: "deviceDiscovery") {
-		section("Search Target") {
-			input "searchTarget", "string", title: "Search Target", defaultValue: "urn:schemas-upnp-org:device:AVRProxy:1", required: true
-		}
-	}
 	page(name: "deviceDiscovery", title: "UPnP Device Setup", content: "deviceDiscovery")
+}
+
+def getSearchTarget() {
+  return "urn:schemas-upnp-org:device:AVRProxy:1"
 }
 
 def deviceDiscovery() {
