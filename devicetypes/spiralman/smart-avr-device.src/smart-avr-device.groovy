@@ -1,5 +1,5 @@
 metadata {
-	definition (name: "Denon AVR", namespace: "spiralman", author: "Thomas Stephens") {
+	definition (name: "Denon AVR Receiver", namespace: "spiralman", author: "Thomas Stephens") {
 	}
 
 	simulator {
