@@ -30,7 +30,7 @@ metadata {
 }
 
 def getProxyIp() {
-  return getDataValue("ip")
+  getDataValue("ip")
 }
 
 def getProxyPort() {
@@ -55,12 +55,44 @@ def sync(ip, port) {
 }
 
 def on() {
-  httpGet([uri: "http://${proxyIp}:${proxyPort}/avr/command",
-           query: [cmd: "PWON"]]) {
-    resp ->
-      log.debug "Got response: ${resp.body}"
-  }
+  def response =
+    new physicalgraph.device.HubAction(method: 'GET',
+                                       path: '/avr/command',
+                                       headers: [
+                                         HOST: hostAddress
+                                       ],
+                                       query: [cmd: "PWON"])
+
+  log.debug "Got response: ${response.body}"
 }
 
 def off() {
+}
+
+// Just copy pasted from SmartThings docs :-(
+// gets the address of the device
+private getHostAddress() {
+  def ip = getDataValue("ip")
+  def port = getDataValue("port")
+
+  if (!ip || !port) {
+    def parts = device.deviceNetworkId.split(":")
+    if (parts.length == 2) {
+      ip = parts[0]
+      port = parts[1]
+    } else {
+      log.warn "Can't figure out ip and port for device: ${device.id}"
+    }
+  }
+
+  log.debug "Using IP: $ip and port: $port for device: ${device.id}"
+  return convertHexToIP(ip) + ":" + convertHexToInt(port)
+}
+
+private Integer convertHexToInt(hex) {
+  return Integer.parseInt(hex,16)
+}
+
+private String convertHexToIP(hex) {
+  return [convertHexToInt(hex[0..1]),convertHexToInt(hex[2..3]),convertHexToInt(hex[4..5]),convertHexToInt(hex[6..7])].join(".")
 }
