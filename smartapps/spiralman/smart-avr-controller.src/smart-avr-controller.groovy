@@ -1,8 +1,8 @@
 definition(
 		name: "Smart AVR Controller",
-		namespace: "spiralman",
+    namespace: "spiralman",
 		author: "Thomas Stephens",
-		description: "An application for controlling Denon AVR stereos",
+		description: "An application for controlling Denon AVR receivers",
 		category: "SmartThings Labs",
 		iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
 		iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
@@ -10,7 +10,10 @@ definition(
 
 
 preferences {
-	page(name: "deviceDiscovery", title: "UPnP Device Setup", content: "deviceDiscovery")
+	page(
+    name: "deviceDiscovery",
+    title: "Smart AVR Device Setup",
+    content: "deviceDiscovery")
 }
 
 def getSearchTarget() {
@@ -31,7 +34,12 @@ def deviceDiscovery() {
 	ssdpDiscover()
 	verifyDevices()
 
-	return dynamicPage(name: "deviceDiscovery", title: "Discovery Started!", nextPage: "", refreshInterval: 5, install: true, uninstall: true) {
+	return dynamicPage(name: "deviceDiscovery",
+                     title: "Discovery Started!",
+                     nextPage: "",
+                     refreshInterval: 5,
+                     install: true,
+                     uninstall: true) {
 		section("Please wait while we discover your UPnP Device. Discovery can take five minutes or more, so sit back and relax! Select your device below once discovered.") {
 			input "selectedDevices", "enum", required: false, title: "Select Devices (${options.size() ?: 0} found)", multiple: true, options: options
 		}
