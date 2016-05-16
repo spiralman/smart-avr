@@ -56,7 +56,7 @@ def sync(ip, port) {
 
 def on() {
   def response =
-    httpGet([uri: "http://${hostAddress}/avr/command"
+    httpGet([uri: "http://${hostAddress}/avr/command",
               query: [cmd: "PWON"]]) {
       response ->
         log.debug "Got response: ${response.data}"
