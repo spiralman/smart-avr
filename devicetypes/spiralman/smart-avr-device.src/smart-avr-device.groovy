@@ -55,13 +55,14 @@ def sync(ip, port) {
 }
 
 def on() {
-  def response =
-    httpGet([uri: "http://${hostAddress}",
-             path: "/avr/command",
-             query: [cmd: "PWON"]]) {
-      response ->
-        log.debug "Got response: ${response.data}"
-    }
+  def result = new physicalgraph.device.HubAction(method: "GET",
+                                                  path: "/avr/command",
+                                                  headers: [
+                                                    HOST: getHostAddress()
+                                                  ],
+                                                  query: [cmd: "PWON"]
+                                                 )
+  return result
 }
 
 def off() {
