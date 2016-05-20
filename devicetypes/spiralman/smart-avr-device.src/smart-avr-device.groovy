@@ -40,7 +40,21 @@ def getProxyPort() {
 // parse events into attributes
 def parse(String description) {
   log.debug "Parsing '${description}'"
+  def msg = parseLanMessage(description)
+  msg.body.eachLine { line ->
+    if (line.startsWith('PW')) {
+      def avrState = line.substring(2)
+      def switchState
 
+      if (avrState == 'ON') {
+        switchState = 'on'
+      }
+      else if (avrState == 'STANDBY') {
+        switchState = 'off'
+      }
+
+      return createEvent(name: 'switch', value: switchState)
+  }
 }
 
 def sync(ip, port) {
