@@ -54,19 +54,23 @@ def sync(ip, port) {
   }
 }
 
-def on() {
-  log.debug "Making on request"
+def _avrCommand(command) {
   def result = new physicalgraph.device.HubAction(method: "GET",
                                                   path: "/avr/command",
                                                   headers: [
                                                     HOST: getHostAddress()
                                                   ],
-                                                  query: [cmd: "PWON"]
+                                                  query: [cmd: command]
                                                  )
   return result
 }
 
+def on() {
+  return _avrCommand("PWON")
+}
+
 def off() {
+  return _avrCommand("PWSTANDBY")
 }
 
 // Just copy pasted from SmartThings docs :-(
