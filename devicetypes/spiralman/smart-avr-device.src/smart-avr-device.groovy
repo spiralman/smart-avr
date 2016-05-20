@@ -55,6 +55,7 @@ def sync(ip, port) {
 }
 
 def on() {
+  log.debug "Making on request"
   def result = new physicalgraph.device.HubAction(method: "GET",
                                                   path: "/avr/command",
                                                   headers: [
@@ -72,18 +73,20 @@ def off() {
 // gets the address of the device
 private getHostAddress() {
   def ip = getDataValue("ip")
+  def port = getDataValue("port")
 
   if (!ip) {
     def parts = device.deviceNetworkId.split(":")
     if (parts.length == 2) {
       ip = parts[0]
+      port = parts[1]
     } else {
       log.warn "Can't figure out ip and port for device: ${device.id}"
     }
   }
 
   log.debug "Using IP: $ip and port: $port for device: ${device.id}"
-  return convertHexToIP(ip)
+  return convertHexToIP(ip) + ":" + convertHexToInt(port)
 }
 
 private Integer convertHexToInt(hex) {
