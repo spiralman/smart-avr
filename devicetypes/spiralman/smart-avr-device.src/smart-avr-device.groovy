@@ -39,8 +39,8 @@ def getProxyPort() {
 
 // parse events into attributes
 def parse(String description) {
-  log.debug "Parsing '${description}'"
   def msg = parseLanMessage(description)
+
   msg.body.eachLine { line ->
     if (line.startsWith('PW')) {
       def avrState = line.substring(2)
@@ -53,6 +53,7 @@ def parse(String description) {
         switchState = 'off'
       }
 
+      log.debug "The receiver is ${switchState}"
       return createEvent(name: 'switch', value: switchState)
   }
 }
