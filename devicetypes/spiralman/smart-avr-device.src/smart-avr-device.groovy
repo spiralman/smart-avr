@@ -55,6 +55,7 @@ def parse(String description) {
 
       log.debug "The receiver is ${switchState}"
       return createEvent(name: 'switch', value: switchState)
+    }
   }
 }
 
