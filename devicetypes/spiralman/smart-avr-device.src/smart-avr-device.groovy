@@ -1,6 +1,7 @@
 metadata {
   definition (name: "Smart AVR Device", namespace: "spiralman", author: "Thomas Stephens") {
     capability "Switch"
+    capability "Refresh"
   }
 
   preferences {
@@ -24,8 +25,13 @@ metadata {
                                        backgroundColor: '#79b821'
     }
 
+    standardTile("refresh", "device.switch", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
+    }
+
     main "switch"
-    details "switch"
+    details(["switch", "refresh"])
   }
 }
 
@@ -87,6 +93,10 @@ def on() {
 
 def off() {
   return _avrCommand("PWSTANDBY")
+}
+
+def refresh() {
+  return _avrCommand("PW?")
 }
 
 // Just copy pasted from SmartThings docs :-(
