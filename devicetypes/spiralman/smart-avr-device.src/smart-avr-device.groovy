@@ -65,6 +65,9 @@ def parse(String description) {
     if (line.startsWith('PW')) {
       events << _parsePW(line)
     }
+    else {
+      log.debug "Unknown line: ${line}"
+    }
   }
 
   return events
