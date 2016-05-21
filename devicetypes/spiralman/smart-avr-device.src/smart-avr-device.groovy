@@ -114,8 +114,8 @@ def off() {
 
 def refresh() {
   getAllActivities()
-  return _avrCommand("PW?") +
-    getCurrentActivity()
+  return [_avrCommand("PW?"),
+          getCurrentActivity()]
 }
 
 def startActivity(activity) {
