@@ -18,8 +18,8 @@ metadata {
   tiles(scale: 2) {
     multiAttributeTile(name: "dashboard", type: "generic", width: 6, height: 4) {
       tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
-        state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: '#ffffff'
-        state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: '#79b821'
+        attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: '#ffffff'
+        attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: '#79b821'
       }
     }
 
