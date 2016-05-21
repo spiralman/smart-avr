@@ -113,8 +113,8 @@ def off() {
 }
 
 def refresh() {
+  getAllActivities()
   return _avrCommand("PW?") +
-    getAllActivities() +
     getCurrentActivity()
 }
 
@@ -123,34 +123,34 @@ def startActivity(activity) {
 }
 
 def getAllActivities() {
-  return createEvent(name: 'activites', value:
-              [
-                "CD",
-                "TUNER",
-                "DVD",
-                "BD",
-                "TV",
-                "SAT/CBL",
-                "GAME",
-                "GAME2",
-                "V.AUX",
-                "DOCK",
-                "IPOD",
-                "NET/USB",
-                "RHAPSODY",
-                "NAPSTER",
-                "PANDORA",
-                "LASTFM",
-                "FLICKR",
-                "FAVORITES",
-                "IRADIO",
-                "SERVER",
-                "USB/IPOD",
-                "USB",
-                "IPD",
-                "IRP",
-                "FVP"
-              ])
+  sendEvent(name: 'activites', value:
+            [
+              "CD",
+              "TUNER",
+              "DVD",
+              "BD",
+              "TV",
+              "SAT/CBL",
+              "GAME",
+              "GAME2",
+              "V.AUX",
+              "DOCK",
+              "IPOD",
+              "NET/USB",
+              "RHAPSODY",
+              "NAPSTER",
+              "PANDORA",
+              "LASTFM",
+              "FLICKR",
+              "FAVORITES",
+              "IRADIO",
+              "SERVER",
+              "USB/IPOD",
+              "USB",
+              "IPD",
+              "IRP",
+              "FVP"
+            ])
 }
 
 def getCurrentActivity() {
