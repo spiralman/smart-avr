@@ -119,11 +119,11 @@ def refresh() {
 }
 
 def startActivity(activity) {
-  _avrCommand("SI" + activity)
+  return _avrCommand("SI" + activity)
 }
 
 def getAllActivities() {
-  createEvent(name: 'activites', value:
+  return createEvent(name: 'activites', value:
               [
                 "CD",
                 "TUNER",
