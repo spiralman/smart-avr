@@ -2,6 +2,7 @@ metadata {
   definition (name: "Smart AVR Device", namespace: "spiralman", author: "Thomas Stephens") {
     capability "Switch"
     capability "Refresh"
+    capability "Media Controller"
   }
 
   preferences {
@@ -14,24 +15,22 @@ metadata {
     // TODO: define status and reply messages here
   }
 
-  tiles {
-    standardTile("switch", "device.switch", width: 1, height: 1,
-                 canChangeIcon: true) {
-      state "off", label: '${name}', action: "switch.on",
-                                       icon: "st.switches.switch.off",
-                                       backgroundColor: '#ffffff'
-      state "on", label: '${name}', action: "switch.off",
-                                       icon: "st.switches.switch.on",
-                                       backgroundColor: '#79b821'
+  tiles(scale: 2) {
+    multiAttributeTile(name: "dashboard", type: "generic", width: 6, height: 4) {
+      tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
+        state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: '#ffffff'
+        state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: '#79b821'
+      }
     }
 
-    standardTile("refresh", "device.switch", inactiveLabel: false,
-                 decoration: "flat", width: 1, height: 1) {
-      state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
-    }
+    // standardTile("refresh", "device.switch", inactiveLabel: false,
+    //              decoration: "flat", width: 1, height: 1) {
+    //   state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
+    // }
 
-    main "switch"
-    details(["switch", "refresh"])
+    main "dashboard"
+    details "dashboard"
+    // details(["switch", "refresh"])
   }
 }
 
@@ -97,6 +96,15 @@ def off() {
 
 def refresh() {
   return _avrCommand("PW?")
+}
+
+def startActivity(activity) {
+}
+
+def getAllActivities() {
+}
+
+def getCurrentActivity() {
 }
 
 // Just copy pasted from SmartThings docs :-(
