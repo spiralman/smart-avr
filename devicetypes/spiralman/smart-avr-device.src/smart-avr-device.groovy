@@ -56,6 +56,12 @@ def _parsePW(line) {
   return createEvent(name: 'switch', value: switchState)
 }
 
+def _parseSI(line) {
+  def inputState = line.substring(2)
+  log.debug "The receiver is on input ${inputState}"
+  return createEvent(name: 'currentActivity', value: inputState)
+}
+
 // parse events into attributes
 def parse(String description) {
   def msg = parseLanMessage(description)
@@ -64,6 +70,9 @@ def parse(String description) {
   msg.body.eachLine { line ->
     if (line.startsWith('PW')) {
       events << _parsePW(line)
+    }
+    else if (line.startsWith('SI')) {
+      events << _parseSI(line)
     }
     else {
       log.debug "Unknown line: ${line}"
@@ -104,17 +113,48 @@ def off() {
 }
 
 def refresh() {
-  return _avrCommand("SI?")
+  return _avrCommand("PW?") +
+    getAllActivities() +
+    getCurrentActivity()
 }
 
 def startActivity(activity) {
+  _avrCommand("SI" + activity)
 }
 
 def getAllActivities() {
-  return _avrCommand("SI?")
+  createEvent(name: 'activites', value:
+              [
+                "CD",
+                "TUNER",
+                "DVD",
+                "BD",
+                "TV",
+                "SAT/CBL",
+                "GAME",
+                "GAME2",
+                "V.AUX",
+                "DOCK",
+                "IPOD",
+                "NET/USB",
+                "RHAPSODY",
+                "NAPSTER",
+                "PANDORA",
+                "LASTFM",
+                "FLICKR",
+                "FAVORITES",
+                "IRADIO",
+                "SERVER",
+                "USB/IPOD",
+                "USB",
+                "IPD",
+                "IRP",
+                "FVP"
+              ])
 }
 
 def getCurrentActivity() {
+  return _avrCommand("SI?")
 }
 
 // Just copy pasted from SmartThings docs :-(
