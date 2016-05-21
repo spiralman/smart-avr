@@ -23,14 +23,13 @@ metadata {
       }
     }
 
-    // standardTile("refresh", "device.switch", inactiveLabel: false,
-    //              decoration: "flat", width: 1, height: 1) {
-    //   state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
-    // }
+    standardTile("refresh", "device.switch", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
+    }
 
     main "dashboard"
-    details "dashboard"
-    // details(["switch", "refresh"])
+    details(["dashboard", "refresh"])
   }
 }
 
