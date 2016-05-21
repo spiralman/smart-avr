@@ -23,7 +23,7 @@ metadata {
       }
 
       tileAttribute("device.mediaController", key: "SECONDARY_CONTROL") {
-        attributeState("default", label: '${currentActivity}', unit: "")
+        attributeState("default", label: '${currentActivity}')
       }
     }
 
