@@ -41,26 +41,33 @@ def getProxyPort() {
   return getDataValue("port")
 }
 
+def _parsePW(line) {
+  def avrState = line.substring(2)
+  def switchState
+
+  if (avrState == 'ON') {
+    switchState = 'on'
+  }
+  else if (avrState == 'STANDBY') {
+    switchState = 'off'
+  }
+
+  log.debug "The receiver is ${switchState}"
+  return createEvent(name: 'switch', value: switchState)
+}
+
 // parse events into attributes
 def parse(String description) {
   def msg = parseLanMessage(description)
+  def events = []
 
   msg.body.eachLine { line ->
     if (line.startsWith('PW')) {
-      def avrState = line.substring(2)
-      def switchState
-
-      if (avrState == 'ON') {
-        switchState = 'on'
-      }
-      else if (avrState == 'STANDBY') {
-        switchState = 'off'
-      }
-
-      log.debug "The receiver is ${switchState}"
-      return createEvent(name: 'switch', value: switchState)
+      events << _parsePW(line)
     }
   }
+
+  return events
 }
 
 def sync(ip, port) {
@@ -101,6 +108,7 @@ def startActivity(activity) {
 }
 
 def getAllActivities() {
+  return _avrCommand("SI?")
 }
 
 def getCurrentActivity() {
