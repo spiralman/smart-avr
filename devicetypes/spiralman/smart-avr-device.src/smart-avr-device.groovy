@@ -101,7 +101,7 @@ def off() {
 }
 
 def refresh() {
-  return _avrCommand("PW?")
+  return _avrCommand("SI?")
 }
 
 def startActivity(activity) {
