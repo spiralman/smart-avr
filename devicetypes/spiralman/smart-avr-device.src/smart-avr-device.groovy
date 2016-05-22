@@ -55,7 +55,7 @@ metadata {
     }
 
     main "dashboard"
-    details(["dashboard", "refresh"])
+    details(["dashboard", "refresh", "CD", "BD"])
   }
 }
 
