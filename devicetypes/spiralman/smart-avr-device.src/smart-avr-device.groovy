@@ -79,6 +79,10 @@ def parse(String description) {
   def msg = parseLanMessage(description)
   def events = []
 
+  if (msg.body == null) {
+    return []
+  }
+
   msg.body.eachLine { line ->
     if (line.startsWith('PW')) {
       events << _parsePW(line)
@@ -141,10 +145,7 @@ def _sourceIndex() {
   def currentSource = device.currentValue("currentActivity")
   def sources = _sources()
 
-  log.debug "Currently: ${currentSource} of ${sources}"
-
   def sourceIndex = sources.findIndexOf { it == currentSource }
-  log.debug "Source at index ${sourceIndex}"
   return sourceIndex
 }
 
@@ -188,7 +189,9 @@ def sourceDown() {
 
 def startActivity(activity) {
   log.debug "Switching to source ${activity}"
-  return _avrCommand("SI" + activity)
+  // AVR doesn't return current source when switching sources, so
+  // force-refresh it
+  return [_avrCommand("SI" + activity), getCurrentActivity()]
 }
 
 def getAllActivities() {
