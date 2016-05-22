@@ -155,7 +155,7 @@ def sourceUp() {
 
   log.debug "to source ${curIndex}"
 
-  return startActivity(sources.get(curIndex))
+  return startActivity(sources.getAt(curIndex))
 }
 
 def sourceDown() {
@@ -174,7 +174,7 @@ def sourceDown() {
 
   log.debug "to source ${curIndex}"
 
-  return startActivity(sources.get(curIndex))
+  return startActivity(sources.getAt(curIndex))
 }
 
 def startActivity(activity) {
