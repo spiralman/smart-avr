@@ -183,7 +183,7 @@ def startActivity(activity) {
 }
 
 def getAllActivities() {
-  sendEvent(name: 'activites', value:
+  sendEvent(name: 'activities', value:
             [
               "CD",
               "TUNER",
