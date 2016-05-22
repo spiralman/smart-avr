@@ -125,7 +125,7 @@ def parse(String description) {
     else if (line.startsWith('SI')) {
       events << _parseSI(line)
     }
-    else if (line.startsWith('MV')) {
+    else if (line.startsWith('MV') && !line.startsWith('MVMAX')) {
       events << _parseMV(line)
     }
     else {
