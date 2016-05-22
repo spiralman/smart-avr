@@ -36,7 +36,7 @@ metadata {
         attributeState("default", label: 'Source: ${currentValue}')
       }
 
-      tileAttribute("device.switchLevel", key: "VALUE_CONTROL") {
+      tileAttribute("device.level", key: "VALUE_CONTROL") {
         attributeState "VALUE_UP", label: "", action: "levelUp"
         attributeState "VALUE_DOWN", label: "", action: "levelDown"
       }
