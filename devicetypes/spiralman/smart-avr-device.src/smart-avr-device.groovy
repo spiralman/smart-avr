@@ -121,7 +121,7 @@ metadata {
              "GAME2",
              "DVR",
              "CD"
-])
+            ])
   }
 }
 
