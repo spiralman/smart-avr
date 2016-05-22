@@ -8,8 +8,18 @@ metadata {
     command "sourceUp"
     command "sourceDown"
 
-    command "sourceCD"
     command "sourceBD"
+    command "sourceSATCBL"
+    command "sourceTV"
+    command "sourceNETUSB"
+    command "sourceDVD"
+    command "sourceVAUX"
+    command "sourceDOCK"
+    command "sourceTUNER"
+    command "sourceGAME1"
+    command "sourceGAME2"
+    command "sourceDVR"
+    command "sourceCD"
 
     command "levelUp"
     command "levelDown"
@@ -47,18 +57,71 @@ metadata {
       state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
     }
 
-    standardTile("CD", "device.mediaController", inactiveLabel: false,
-                 decoration: "flat", width: 1, height: 1) {
-      state "default", label:"CD", action:"sourceCD", icon:"st.Electronics.electronics1"
-    }
-
     standardTile("BD", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
       state "default", label:"BD", action:"sourceBD", icon:"st.Electronics.electronics9"
     }
 
+    standardTile("SATCBL", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "SAT/CBL", action: "sourceSATCBL", icon: "st.Electronics.electronics18"
+    }
+    standardTile("TV", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "TV", action: "sourceTV", icon: "st.Electronics.electronics18"
+    }
+    standardTile("NETUSB", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "NETUSB", action: "sourceNETUSB", icon: "st.Entertainment.entertainment4"
+    }
+    standardTile("DVD", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "DVD", action: "sourceDVD", icon: "st.Electronics.electronics8"
+    }
+    standardTile("VAUX", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "VAUX", action: "sourceVAUX", icon: "st.Electronics.electronics6"
+    }
+    standardTile("DOCK", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "DOCK", action: "sourceDOCK", icon: "st.Entertainment.entertainment4"
+    }
+    standardTile("TUNER", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "TUNER", action: "sourceTUNER", icon: "st.Electronics.electronics10"
+    }
+    standardTile("GAME1", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "GAME1", action: "sourceGAME", icon: "st.Electronics.electronics5"
+    }
+    standardTile("GAME2", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "GAME2", action: "sourceGAME2", icon: "st.Electronics.electronics5"
+    }
+    standardTile("DVR", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "DVR", action: "sourceDVR", icon: "st.Electronics.electronics18"
+    }
+    standardTile("CD", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label: "CD", action: "sourceCD", icon: "st.Electronics.electronics1"
+    }
+
     main "dashboard"
-    details(["dashboard", "refresh", "CD", "BD"])
+    details(["dashboard", "refresh",
+             "BD",
+             "SATCBL",
+             "TV",
+             "NETUSB",
+             "DVD",
+             "VAUX",
+             "DOCK",
+             "TUNER",
+             "GAME1",
+             "GAME2",
+             "DVR",
+             "CD"
+])
   }
 }
 
@@ -226,12 +289,41 @@ def sourceDown() {
   return startActivity(sources.getAt(curIndex))
 }
 
-def sourceCD() {
-  return startActivity("CD")
-}
-
 def sourceBD() {
-  return startActivity("BD")
+  startActivity("BD")
+}
+def sourceSATCBL() {
+  startActivity("SAT/CBL")
+}
+def sourceTV() {
+  startActivity("TV")
+}
+def sourceNETUSB() {
+  startActivity("NET/USB")
+}
+def sourceDVD() {
+  startActivity("DVD")
+}
+def sourceVAUX() {
+  startActivity("V.AUX")
+}
+def sourceDOCK() {
+  startActivity("DOCK")
+}
+def sourceTUNER() {
+  startActivity("TUNER")
+}
+def sourceGAME() {
+  startActivity("GAME")
+}
+def sourceGAME2() {
+  startActivity("GAME2")
+}
+def sourceDVR() {
+  startActivity("DVR")
+}
+def sourceCD() {
+  startActivity("CD")
 }
 
 def startActivity(activity) {
