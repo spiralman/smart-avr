@@ -91,6 +91,18 @@ def _parseSI(line) {
   return createEvent(name: 'currentActivity', value: inputState)
 }
 
+def _parseMV(line) {
+  def volText = line.substring(2, 4)
+
+  def vol = volText.toFloat()
+
+  if (line.size() == 5) {
+    vol += 0.5
+  }
+
+  return createEvent(name: 'level', value: vol)
+}
+
 // parse events into attributes
 def parse(String description) {
   def msg = parseLanMessage(description)
@@ -106,6 +118,9 @@ def parse(String description) {
     }
     else if (line.startsWith('SI')) {
       events << _parseSI(line)
+    }
+    else if (line.startsWith('MV')) {
+      events << _parseMV(line)
     }
     else {
       log.debug "Unknown line: ${line}"
