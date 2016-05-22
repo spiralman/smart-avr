@@ -21,15 +21,15 @@ metadata {
   tiles(scale: 2) {
     multiAttributeTile(name: "dashboard", type: "generic", width: 6, height: 4) {
       tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
-        attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: '#ffffff'
-        attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: '#79b821'
+        attributeState "off", label: '${name}', action: "switch.on", icon: "st.Electronics.electronics13", backgroundColor: '#ffffff'
+        attributeState "on", label: '${name}', action: "switch.off", icon: "st.Electronics.electronics13", backgroundColor: '#79b821'
       }
 
       tileAttribute("device.currentActivity", key: "SECONDARY_CONTROL") {
         attributeState("default", label: 'Source: ${currentValue}')
       }
 
-      tileAttribute("device.nothing", key: "VALUE_CONTROL") {
+      tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
         attributeState "VALUE_UP", label: "", action: "sourceUp"
         attributeState "VALUE_DOWN", label: "", action: "sourceDown"
       }
