@@ -132,7 +132,9 @@ def refresh() {
 
 def _sourceIndex() {
   def currentSource = device.currentValue("currentActivity")
-  def sources = device.currentValue("activities")
+  def sources = device.currentState("activities")
+
+  log.debug "Currently: ${currentSource} of ${sources}"
 
   return sources.indexOf(currentSource)
 }
