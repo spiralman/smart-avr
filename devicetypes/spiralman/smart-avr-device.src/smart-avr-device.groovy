@@ -137,7 +137,7 @@ def _sourceIndex() {
 
   log.debug "Currently: ${currentSource} of ${sources}"
 
-  def sourceIndex = sources.indexOf(currentSource)
+  def sourceIndex = sources.findIndexOf { it == currentSource }
   log.debug "Source at index ${sourceIndex}"
   return sourceIndex
 }
