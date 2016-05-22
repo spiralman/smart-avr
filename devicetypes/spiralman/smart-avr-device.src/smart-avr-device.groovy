@@ -16,7 +16,7 @@ metadata {
     command "sourceVAUX"
     command "sourceDOCK"
     command "sourceTUNER"
-    command "sourceGAME1"
+    command "sourceGAME"
     command "sourceGAME2"
     command "sourceDVR"
     command "sourceCD"
