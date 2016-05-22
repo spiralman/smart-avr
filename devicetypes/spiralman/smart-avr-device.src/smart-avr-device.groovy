@@ -133,6 +133,7 @@ def refresh() {
 def _sourceIndex() {
   def currentSource = device.currentValue("currentActivity")
   def sources = device.currentValue("activities")
+  sources = substring(1, sources.size() - 1).split(', ')
 
   log.debug "Currently: ${currentSource} of ${sources}"
 
