@@ -31,7 +31,7 @@ metadata {
 
       tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
         attributeState "VALUE_UP", action: "sourceUp"
-        attributeState "VALUE_DOWN", action "sourceDown"
+        attributeState "VALUE_DOWN", action: "sourceDown"
       }
     }
 
