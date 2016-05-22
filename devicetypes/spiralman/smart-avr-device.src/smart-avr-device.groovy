@@ -169,6 +169,7 @@ def off() {
 def refresh() {
   getAllActivities()
   return [_avrCommand("PW?"),
+          _avrCommand("MV?"),
           getCurrentActivity()]
 }
 
