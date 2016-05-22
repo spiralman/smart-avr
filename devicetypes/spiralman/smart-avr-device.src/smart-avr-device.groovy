@@ -130,10 +130,16 @@ def refresh() {
           getCurrentActivity()]
 }
 
-def _sourceIndex() {
-  def currentSource = device.currentValue("currentActivity")
+def _sources() {
   def sources = device.currentValue("activities")
   sources = sources.substring(1, sources.size() - 1).split(', ')
+
+  return sources
+}
+
+def _sourceIndex() {
+  def currentSource = device.currentValue("currentActivity")
+  def sources = _sources()
 
   log.debug "Currently: ${currentSource} of ${sources}"
 
@@ -144,7 +150,7 @@ def _sourceIndex() {
 
 def sourceUp() {
   log.debug "Source up"
-  def sources = device.currentValue("activities")
+  def sources = _sources()
   def curIndex = _sourceIndex()
 
   log.debug "Switching from source ${curIndex}"
@@ -163,7 +169,7 @@ def sourceUp() {
 
 def sourceDown() {
   log.debug "Source down"
-  def sources = device.currentValue("activities")
+  def sources = _sources()
   def curIndex = _sourceIndex()
 
   log.debug "Switching from source ${curIndex}"
