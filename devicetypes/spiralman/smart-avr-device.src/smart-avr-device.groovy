@@ -10,6 +10,9 @@ metadata {
 
     command "sourceCD"
     command "sourceBD"
+
+    command "levelUp"
+    command "levelDown"
   }
 
   preferences {
@@ -33,9 +36,9 @@ metadata {
         attributeState("default", label: 'Source: ${currentValue}')
       }
 
-      tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
-        attributeState "VALUE_UP", label: "", action: "sourceUp"
-        attributeState "VALUE_DOWN", label: "", action: "sourceDown"
+      tileAttribute("device.switchLevel", key: "VALUE_CONTROL") {
+        attributeState "VALUE_UP", label: "", action: "levelUp"
+        attributeState "VALUE_DOWN", label: "", action: "levelDown"
       }
     }
 
@@ -254,6 +257,14 @@ def getCurrentActivity() {
 
 def setLevel(level) {
   log.debug "Level request for ${level}"
+}
+
+def levelUp() {
+  return _avrCommand("MVUP")
+}
+
+def levelDown() {
+  return _avrCommand("MVDOWN")
 }
 
 // Just copy pasted from SmartThings docs :-(
