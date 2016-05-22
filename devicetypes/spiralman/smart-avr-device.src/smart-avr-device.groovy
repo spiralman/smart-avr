@@ -37,8 +37,8 @@ metadata {
       }
 
       tileAttribute("device.level", key: "VALUE_CONTROL") {
-        attributeState "VALUE_UP", label: "", action: "levelUp"
-        attributeState "VALUE_DOWN", label: "", action: "levelDown"
+        attributeState "VALUE_UP", action: "levelUp"
+        attributeState "VALUE_DOWN", action: "levelDown"
       }
     }
 
