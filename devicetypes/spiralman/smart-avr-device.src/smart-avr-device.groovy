@@ -7,6 +7,9 @@ metadata {
 
     command "sourceUp"
     command "sourceDown"
+
+    command "sourceCD"
+    command "sourceBD"
   }
 
   preferences {
@@ -34,15 +37,21 @@ metadata {
         attributeState "VALUE_UP", label: "", action: "sourceUp"
         attributeState "VALUE_DOWN", label: "", action: "sourceDown"
       }
-
-      tileAttribute("device.switchLevel", key: "SLIDER_CONTROL") {
-        attributeState "level", action: "switch level.setLevel"
-      }
     }
 
     standardTile("refresh", "device.switch", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
       state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
+    }
+
+    standardTile("CD", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label:"CD", action:"sourceCD", icon:"st.Electronics.electronics1"
+    }
+
+    standardTile("BD", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label:"BD", action:"sourceBD", icon:"st.Electronics.electronics9"
     }
 
     main "dashboard"
@@ -190,6 +199,14 @@ def sourceDown() {
   log.debug "to source ${curIndex}"
 
   return startActivity(sources.getAt(curIndex))
+}
+
+def sourceCD() {
+  return startActivity("CD")
+}
+
+def sourceBD() {
+  return startActivity("BD")
 }
 
 def startActivity(activity) {
