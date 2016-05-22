@@ -29,7 +29,7 @@ metadata {
         attributeState("default", label: 'Source: ${currentValue}')
       }
 
-      tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
+      tileAttribute("device.nothing", key: "VALUE_CONTROL") {
         attributeState "VALUE_UP", label: "", action: "sourceUp"
         attributeState "VALUE_DOWN", label: "", action: "sourceDown"
       }
