@@ -3,6 +3,7 @@ metadata {
     capability "Switch"
     capability "Refresh"
     capability "Media Controller"
+    capability "Switch Level"
 
     command "sourceUp"
     command "sourceDown"
@@ -32,6 +33,10 @@ metadata {
       tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
         attributeState "VALUE_UP", label: "", action: "sourceUp"
         attributeState "VALUE_DOWN", label: "", action: "sourceDown"
+      }
+
+      tileAttribute("device.switchLevel", key: "SLIDER_CONTROL") {
+        attributeState "level", action: "switch level.setLevel"
       }
     }
 
@@ -228,6 +233,10 @@ def getAllActivities() {
 
 def getCurrentActivity() {
   return _avrCommand("SI?")
+}
+
+def setLevel(level) {
+  log.debug "Level request for ${level}"
 }
 
 // Just copy pasted from SmartThings docs :-(
