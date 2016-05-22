@@ -3,6 +3,9 @@ metadata {
     capability "Switch"
     capability "Refresh"
     capability "Media Controller"
+
+    command "sourceUp"
+    command "sourceDown"
   }
 
   preferences {
@@ -26,10 +29,10 @@ metadata {
         attributeState("default", label: 'Source: ${currentValue}')
       }
 
-      // tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
-      //   attributeState "VALUE_UP", action: "sourceUp"
-      //   attributeState "VALUE_DOWN", action "sourceDown"
-      // }
+      tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
+        attributeState "VALUE_UP", action: "sourceUp"
+        attributeState "VALUE_DOWN", action "sourceDown"
+      }
     }
 
     standardTile("refresh", "device.switch", inactiveLabel: false,
