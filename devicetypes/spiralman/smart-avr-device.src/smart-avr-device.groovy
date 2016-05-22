@@ -92,6 +92,10 @@ def _parseSI(line) {
 }
 
 def _parseMV(line) {
+  if (line.startsWith('MVMAX')) {
+    return
+  }
+
   def volText = line.substring(2, 4)
 
   def vol = volText.toFloat()
@@ -99,6 +103,8 @@ def _parseMV(line) {
   if (line.size() == 5) {
     vol += 0.5
   }
+
+  log.debug "Master volume is ${vol}"
 
   return createEvent(name: 'level', value: vol)
 }
