@@ -136,7 +136,9 @@ def _sourceIndex() {
 
   log.debug "Currently: ${currentSource} of ${sources}"
 
-  return sources.indexOf(currentSource)
+  def sourceIndex = sources.indexOf(currentSource)
+  log.debug "Source at index ${sourceIndex}"
+  return sourceIndex
 }
 
 def sourceUp() {
