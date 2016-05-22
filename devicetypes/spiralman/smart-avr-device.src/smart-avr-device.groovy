@@ -30,8 +30,8 @@ metadata {
       }
 
       tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
-        attributeState "VALUE_UP", action: "sourceUp"
-        attributeState "VALUE_DOWN", action: "sourceDown"
+        attributeState "VALUE_UP", label: "", action: "sourceUp"
+        attributeState "VALUE_DOWN", label: "", action: "sourceDown"
       }
     }
 
@@ -138,8 +138,11 @@ def _sourceIndex() {
 }
 
 def sourceUp() {
+  log.debug "Source up"
   def sources = device.currentValue("activities")
   def curIndex = _sourceIndex()
+
+  log.debug "Switching from source ${curIndex}"
 
   if (curIndex == 0) {
     curIndex = sources.size() - 1
@@ -148,12 +151,17 @@ def sourceUp() {
     curIndex -= 1
   }
 
+  log.debug "to source ${curIndex}"
+
   return startActivity(sources.get(curIndex))
 }
 
 def sourceDown() {
+  log.debug "Source down"
   def sources = device.currentValue("activities")
   def curIndex = _sourceIndex()
+
+  log.debug "Switching from source ${curIndex}"
 
   if (curIndex == sources.size() - 1) {
     curIndex = 0
@@ -162,10 +170,13 @@ def sourceDown() {
     curIndex += 1
   }
 
+  log.debug "to source ${curIndex}"
+
   return startActivity(sources.get(curIndex))
 }
 
 def startActivity(activity) {
+  log.debug "Switching to source ${activity}"
   return _avrCommand("SI" + activity)
 }
 
