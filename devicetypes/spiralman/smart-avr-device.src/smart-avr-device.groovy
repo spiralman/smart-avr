@@ -191,7 +191,8 @@ def startActivity(activity) {
   log.debug "Switching to source ${activity}"
   // AVR doesn't return current source when switching sources, so
   // force-refresh it
-  return [_avrCommand("SI" + activity), getCurrentActivity()]
+  sendEvent(name: 'currentActivity', value: activity)
+  return _avrCommand("SI" + activity)
 }
 
 def getAllActivities() {
