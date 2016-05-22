@@ -23,7 +23,12 @@ metadata {
       }
 
       tileAttribute("device.currentActivity", key: "SECONDARY_CONTROL") {
-        attributeState("default", label: '${currentValue}')
+        attributeState("default", label: 'Source: ${currentValue}')
+      }
+
+      tileAttribute("device.currentActivity", key: "VALUE_CONTROL") {
+        attributeState "VALUE_UP", action: "sourceUp"
+        attributeState "VALUE_DOWN", action "sourceDown"
       }
     }
 
@@ -120,6 +125,41 @@ def refresh() {
   getAllActivities()
   return [_avrCommand("PW?"),
           getCurrentActivity()]
+}
+
+def _sourceIndex() {
+  def currentSource = device.currentValue("currentActivity")
+  def sources = device.currentValue("activities")
+
+  return sources.indexOf(currentSource)
+}
+
+def sourceUp() {
+  def sources = device.currentValue("activities")
+  def curIndex = _sourceIndex()
+
+  if (curIndex == 0) {
+    curIndex = sources.size() - 1
+  }
+  else {
+    curIndex -= 1
+  }
+
+  return startActivity(sources.get(curIndex))
+}
+
+def sourceDown() {
+  def sources = device.currentValue("activities")
+  def curIndex = _sourceIndex()
+
+  if (curIndex == sources.size() - 1) {
+    curIndex = 0
+  }
+  else {
+    curIndex += 1
+  }
+
+  return startActivity(sources.get(curIndex))
 }
 
 def startActivity(activity) {
