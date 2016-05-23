@@ -59,7 +59,7 @@ metadata {
 
     standardTile("sourceDown", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
-      state "default", label:"", action:"sourceDown", icon:"st.secondary.left-arrow"
+      state "default", label:"", action:"sourceDown", icon:"st.thermostat.thermostat-down"
     }
 
     standardTile("BD", "device.mediaController", inactiveLabel: false,
