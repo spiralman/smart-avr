@@ -72,7 +72,7 @@ metadata {
     }
     standardTile("NETUSB", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
-      state "default", label: "NETUSB", action: "sourceNETUSB", icon: "st.Entertainment.entertainment4"
+      state "default", label: "NET/USB", action: "sourceNETUSB", icon: "st.Entertainment.entertainment2"
     }
     standardTile("DVD", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
