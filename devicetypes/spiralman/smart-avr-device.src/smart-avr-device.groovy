@@ -73,7 +73,7 @@ metadata {
 
     standardTile("mute", "device.mute", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
-      state "muted", label: "Mute", action: "unmute", icon: "st.custom.sonos.muted"
+      state "muted", label: "Unmute", action: "unmute", icon: "st.custom.sonos.muted"
       state "unmuted", label: "Mute", action: "mute", icon: "st.custom.sonos.unmuted"
     }
 
@@ -176,10 +176,6 @@ def _parseSI(line) {
 }
 
 def _parseMV(line) {
-  if (line.startsWith('MVMAX')) {
-    return
-  }
-
   def volText = line.substring(2, 4)
 
   def vol = volText.toFloat()
@@ -191,6 +187,21 @@ def _parseMV(line) {
   log.debug "Master volume is ${vol}"
 
   return createEvent(name: 'level', value: vol)
+}
+
+def _parseMU(line) {
+  def avrState = line.substring(2)
+  def muteState
+
+  if (avrState == 'ON') {
+    muteState = 'muted'
+  }
+  else if (avrState == 'OFF') {
+    muteState = 'unmuted'
+  }
+
+  log.debug "The receiver is ${muteState}"
+  return createEvent(name: 'mute', value: muteState)
 }
 
 // parse events into attributes
@@ -211,6 +222,9 @@ def parse(String description) {
     }
     else if (line.startsWith('MV') && !line.startsWith('MVMAX')) {
       events << _parseMV(line)
+    }
+    else if (line.startsWith('MU')) {
+      events << _parseMU(line)
     }
     else {
       log.debug "Unknown line: ${line}"
@@ -252,9 +266,9 @@ def off() {
 
 def refresh() {
   getAllActivities()
-  sendEvent(name: "mute", value: "muted")
   return [_avrCommand("PW?"),
           _avrCommand("MV?"),
+          _avrCommand("MU?"),
           getCurrentActivity()]
 }
 
@@ -404,9 +418,11 @@ def levelDown() {
 }
 
 def mute() {
+  return _avrCommand("MUON")
 }
 
 def unmute() {
+  return _avrCommand("MUOFF")
 }
 
 // Just copy pasted from SmartThings docs :-(
