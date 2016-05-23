@@ -57,6 +57,11 @@ metadata {
       state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
     }
 
+    standardTile("sourceDown", "device.mediaController", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "default", label:"", action:"sourceDown", icon:"st.secondary.left"
+    }
+
     standardTile("BD", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
       state "default", label:"BD", action:"sourceBD", icon:"st.Electronics.electronics9"
@@ -109,6 +114,7 @@ metadata {
 
     main "dashboard"
     details(["dashboard", "refresh",
+             "sourceDown", "sourceUp",
              "BD",
              "SATCBL",
              "TV",
