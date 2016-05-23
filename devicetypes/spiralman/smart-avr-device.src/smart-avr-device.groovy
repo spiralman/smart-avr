@@ -252,7 +252,7 @@ def off() {
 
 def refresh() {
   getAllActivities()
-  sendEvent(name: "mute", value: "unmuted")
+  sendEvent(name: "mute", value: "muted")
   return [_avrCommand("PW?"),
           _avrCommand("MV?"),
           getCurrentActivity()]
