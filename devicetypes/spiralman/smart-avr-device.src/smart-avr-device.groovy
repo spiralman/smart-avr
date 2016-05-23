@@ -23,6 +23,10 @@ metadata {
 
     command "levelUp"
     command "levelDown"
+
+    command "mute"
+    command "unmute"
+    attribute "mute"
   }
 
   preferences {
@@ -65,6 +69,12 @@ metadata {
     standardTile("sourceUp", "device.mediaController", inactiveLabel: false,
                  decoration: "flat", width: 2, height: 1) {
       state "default", label:"Next Source", action:"sourceUp", icon:"st.thermostat.thermostat-right"
+    }
+
+    standardTile("mute", "device.mute", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "muted", label "Mute", action: "unmute", icon: "st.custom.sonos.muted"
+      state "unmuted", label "Mute", action: "mute", icon: "st.custom.sonos.unmuted"
     }
 
     standardTile("BD", "device.mediaController", inactiveLabel: false,
@@ -390,6 +400,12 @@ def levelUp() {
 
 def levelDown() {
   return _avrCommand("MVDOWN")
+}
+
+def mute() {
+}
+
+def unmute() {
 }
 
 // Just copy pasted from SmartThings docs :-(
