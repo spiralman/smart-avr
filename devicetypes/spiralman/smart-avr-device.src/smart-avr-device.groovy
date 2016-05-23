@@ -73,8 +73,8 @@ metadata {
 
     standardTile("mute", "device.mute", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
-      state "muted", label: "Unmute", action: "unmute", icon: "st.custom.sonos.muted"
-      state "unmuted", label: "Mute", action: "mute", icon: "st.custom.sonos.unmuted"
+      state "muted", label: "", action: "unmute", icon: "st.custom.sonos.muted"
+      state "unmuted", label: "", action: "mute", icon: "st.custom.sonos.unmuted"
     }
 
     standardTile("BD", "device.mediaController", inactiveLabel: false,
