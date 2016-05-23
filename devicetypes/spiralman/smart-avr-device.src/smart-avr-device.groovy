@@ -26,7 +26,7 @@ metadata {
 
     command "mute"
     command "unmute"
-    attribute "mute"
+    attribute "mute", "string"
   }
 
   preferences {
