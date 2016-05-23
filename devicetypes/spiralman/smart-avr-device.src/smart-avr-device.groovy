@@ -129,7 +129,7 @@ metadata {
 
     main "dashboard"
     details(["dashboard", "refresh",
-             "sourceDown", "sourceUp",
+             "sourceDown", "sourceUp", "mute",
              "BD",
              "SATCBL",
              "TV",
