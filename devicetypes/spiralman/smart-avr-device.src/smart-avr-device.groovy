@@ -210,6 +210,7 @@ def parse(String description) {
   def events = []
 
   if (msg.status > 299) {
+    log.error "Got error: ${msg.body}"
     throw new Exception()
   }
 
