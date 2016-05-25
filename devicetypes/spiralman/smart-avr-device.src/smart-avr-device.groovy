@@ -209,6 +209,10 @@ def parse(String description) {
   def msg = parseLanMessage(description)
   def events = []
 
+  if (msg.status > 299) {
+    throw new Exception()
+  }
+
   if (msg.body == null) {
     return []
   }
