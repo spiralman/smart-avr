@@ -307,10 +307,10 @@ def off() {
 
 def refresh() {
   getAllActivities()
-  return [_avrCommand("TMAN?"),
-          _avrCommand("PW?"),
+  return [_avrCommand("PW?"),
           _avrCommand("MV?"),
           _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
           getCurrentActivity()]
 }
 
