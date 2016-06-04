@@ -306,10 +306,10 @@ def off() {
 
 def refresh() {
   getAllActivities()
-  return [_avrCommand("PW?"),
+  return [_avrCommand("TFAN?"),
+          _avrCommand("PW?"),
           _avrCommand("MV?"),
           _avrCommand("MU?"),
-          _avrCommand("TFAN?"),
           getCurrentActivity()]
 }
 
