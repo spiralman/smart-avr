@@ -223,6 +223,15 @@ def _parseMU(line) {
   return createEvent(name: 'mute', value: muteState)
 }
 
+def parseTF(line) {
+  def freqText = line.substr(4, 8) << "." << line.substr(8)
+  log.debug "Freq text is ${freqText}"
+
+  def freq = freqText.toFloat()
+  log.debug "Freq is ${freq}"
+  return createEvent(name: 'tuneFreq', value: freq)
+}
+
 // parse events into attributes
 def parse(String description) {
   def msg = parseLanMessage(description)
@@ -249,6 +258,9 @@ def parse(String description) {
     }
     else if (line.startsWith('MU')) {
       events << _parseMU(line)
+    }
+    else if (line.startsWith('TF')) {
+      events << _parseTF(line)
     }
     else {
       log.debug "Unknown line: ${line}"
@@ -293,6 +305,7 @@ def refresh() {
   return [_avrCommand("PW?"),
           _avrCommand("MV?"),
           _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
           getCurrentActivity()]
 }
 
