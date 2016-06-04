@@ -223,7 +223,7 @@ def _parseMU(line) {
   return createEvent(name: 'mute', value: muteState)
 }
 
-def parseTF(line) {
+def _parseTF(line) {
   log.debug "Parsing ${line}"
 
   def freqText = line.substr(4, 8) << "." << line.substr(8)
@@ -285,7 +285,6 @@ def sync(ip, port) {
 }
 
 def _avrCommand(command) {
-  log.debug "Sending command ${command}"
   def result = new physicalgraph.device.HubAction(method: "GET",
                                                   path: "/avr/command",
                                                   headers: [
