@@ -285,6 +285,7 @@ def sync(ip, port) {
 }
 
 def _avrCommand(command) {
+  log.debug "Sending command ${command}"
   def result = new physicalgraph.device.HubAction(method: "GET",
                                                   path: "/avr/command",
                                                   headers: [
