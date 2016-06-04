@@ -306,8 +306,8 @@ def refresh() {
   getAllActivities()
   return [_avrCommand("PW?"),
           _avrCommand("MV?"),
-          _avrCommand("MU?"),
           _avrCommand("TFAN?"),
+          _avrCommand("MU?"),
           getCurrentActivity()]
 }
 
