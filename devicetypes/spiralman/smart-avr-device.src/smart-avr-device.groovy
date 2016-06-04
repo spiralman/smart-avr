@@ -236,10 +236,9 @@ def _parseTF(line) {
 
 // parse events into attributes
 def parse(String description) {
+  log.debug "Got message ${description}"
   def msg = parseLanMessage(description)
   def events = []
-
-  log.debug "${msg.body}"
 
   if (msg.status > 299) {
     log.error "Got error: ${msg.body}"
