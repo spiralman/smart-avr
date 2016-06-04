@@ -245,6 +245,7 @@ def parse(String description) {
   }
 
   if (msg.body == null) {
+    log.debug "Empty message"
     return []
   }
 
@@ -306,8 +307,8 @@ def refresh() {
   getAllActivities()
   return [_avrCommand("PW?"),
           _avrCommand("MV?"),
-          _avrCommand("TFAN?"),
           _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
           getCurrentActivity()]
 }
 
