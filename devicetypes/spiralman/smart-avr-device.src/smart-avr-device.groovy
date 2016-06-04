@@ -27,6 +27,10 @@ metadata {
     command "mute"
     command "unmute"
     attribute "mute", "string"
+
+    command "tuneDown"
+    command "tuneUp"
+    attribute "tuneFreq", "number"
   }
 
   preferences {
@@ -127,6 +131,20 @@ metadata {
       state "default", label: "CD", action: "sourceCD", icon: "st.Electronics.electronics1"
     }
 
+    standardTile("tuneDown", "device.tuneDown", inactiveLabel: false,
+                 decoration: "flat", width: 2, height: 1) {
+      state "default", action:"tuneDown", icon:"st.thermostat.thermostat-down"
+    }
+
+    valueTile("tuneFreq", "device.tuneFreq", decoration: "flat") {
+      state "default", label: '${currentValue} MHz'
+    }
+
+    standardTile("tuneUp", "device.tuneUp", inactiveLabel: false,
+                 decoration: "flat", width: 2, height: 1) {
+      state "default", action:"tuneUp", icon:"st.thermostat.thermostat-up"
+    }
+
     main "dashboard"
     details(["dashboard", "refresh",
              "sourceDown", "sourceUp", "mute",
@@ -141,7 +159,8 @@ metadata {
              "GAME1",
              "GAME2",
              "DVR",
-             "CD"
+             "CD",
+             "tuneDown", "tuneFreq", "tuneUp"
             ])
   }
 }
