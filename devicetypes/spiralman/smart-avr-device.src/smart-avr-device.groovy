@@ -263,6 +263,7 @@ def parse(String description) {
       events << _parseMU(line)
     }
     else if (line.startsWith('TF')) {
+      log.debug "Found TF"
       events << _parseTF(line)
     }
     else {
