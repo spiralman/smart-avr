@@ -132,16 +132,16 @@ metadata {
     }
 
     standardTile("tuneDown", "device.tuneDown", inactiveLabel: false,
-                 decoration: "flat", width: 2, height: 1) {
+                 decoration: "flat") {
       state "default", action:"tuneDown", icon:"st.thermostat.thermostat-down"
     }
 
-    valueTile("tuneFreq", "device.tuneFreq", decoration: "flat") {
-      state "default", label: '${currentValue} MHz'
+    valueTile("tuneFreq", "device.tuneFreq", decoration: "flat", width: 2) {
+      state "default", label: '${currentValue} MHz\nTuner'
     }
 
     standardTile("tuneUp", "device.tuneUp", inactiveLabel: false,
-                 decoration: "flat", width: 2, height: 1) {
+                 decoration: "flat") {
       state "default", action:"tuneUp", icon:"st.thermostat.thermostat-up"
     }
 
