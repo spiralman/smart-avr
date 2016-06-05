@@ -306,13 +306,12 @@ def off() {
 }
 
 def refresh() {
-  // getAllActivities()
-  // return [_avrCommand("PW?"),
-  //         _avrCommand("MV?"),
-  //         _avrCommand("MU?"),
-  //         _avrCommand("TFAN?"),
-  //         getCurrentActivity()]
-  return _avrCommand("PW?")
+  getAllActivities()
+  return [_avrCommand("PW?"),
+          _avrCommand("MV?"),
+          _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
+          getCurrentActivity()]
 }
 
 def _sources() {
@@ -471,11 +470,11 @@ def unmute() {
 // Just copy pasted from SmartThings docs :-(
 // gets the address of the device
 private getHostAddress() {
-  // def ip = getDataValue("ip")
-  // def port = getDataValue("port")
+  def ip = getDataValue("ip")
+  def port = getDataValue("port")
 
-  def ip = 'C0A80168'
-  def port = '1388'
+  // def ip = 'C0A80168'
+  // def port = '1388'
 
   if (!ip) {
     def parts = device.deviceNetworkId.split(":")
