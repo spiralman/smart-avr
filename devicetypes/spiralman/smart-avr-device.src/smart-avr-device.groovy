@@ -471,8 +471,8 @@ def unmute() {
 // Just copy pasted from SmartThings docs :-(
 // gets the address of the device
 private getHostAddress() {
-  def ip = getDataValue("ip")
-  def port = getDataValue("port")
+  // def ip = getDataValue("ip")
+  // def port = getDataValue("port")
 
   def ip = 'C0A80168'
   def port = 5000
