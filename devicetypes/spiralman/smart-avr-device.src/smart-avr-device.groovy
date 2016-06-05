@@ -474,7 +474,7 @@ private getHostAddress() {
   def ip = getDataValue("ip")
   def port = getDataValue("port")
 
-  debug.log "ip is ${ip}"
+  log.debug "ip is ${ip}"
   // def ip = '192.168.1.104'
   // def port = 5000
 
