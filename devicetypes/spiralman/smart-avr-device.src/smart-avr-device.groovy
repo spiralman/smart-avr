@@ -474,9 +474,8 @@ private getHostAddress() {
   def ip = getDataValue("ip")
   def port = getDataValue("port")
 
-  log.debug "ip is ${ip}"
-  // def ip = '192.168.1.104'
-  // def port = 5000
+  def ip = 'C0A80168'
+  def port = 5000
 
   if (!ip) {
     def parts = device.deviceNetworkId.split(":")
