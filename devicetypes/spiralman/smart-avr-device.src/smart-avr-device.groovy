@@ -312,7 +312,7 @@ def refresh() {
   //         _avrCommand("MU?"),
   //         _avrCommand("TFAN?"),
   //         getCurrentActivity()]
-  return _avrCommand("TFAN?")
+  return _avrCommand("TMAN?")
 }
 
 def _sources() {
