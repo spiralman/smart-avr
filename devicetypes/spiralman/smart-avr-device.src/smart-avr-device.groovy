@@ -263,12 +263,12 @@ def parse(String description) {
     else if (line.startsWith('MU')) {
       events << _parseMU(line)
     }
-    else if (line.startsWith('TF')) {
-      // SmartThings gets confused when the response starts with 'TF'
-      // and doesn't call parse, so we convert it to 'TX' at the proxy
-      _parseTF(line)
-      // events << _parseTF(line)
-    }
+    // else if (line.startsWith('TF')) {
+    //   // SmartThings gets confused when the response starts with 'TF'
+    //   // and doesn't call parse, so we convert it to 'TX' at the proxy
+    //   _parseTF(line)
+    //   // events << _parseTF(line)
+    // }
     else {
       log.debug "Unknown line: ${line}"
     }
