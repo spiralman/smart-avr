@@ -305,6 +305,16 @@ def off() {
   return _avrCommand("PWSTANDBY")
 }
 
+def _echo(command) {
+  new physicalgraph.device.HubAction(method: "GET",
+                                     path: "/echo",
+                                     headers: [
+                                       HOST: getHostAddress()
+                                     ],
+                                     query: [cmd: command]
+                                    )
+}
+
 def refresh() {
   // getAllActivities()
   // return [_avrCommand("PW?"),
@@ -313,7 +323,11 @@ def refresh() {
   //         _avrCommand("TFAN?"),
   //         getCurrentActivity()]
 
-  return _avrCommand("TFAN?")
+
+  // return _avrCommand("TFAN?")
+  return ('A'..'Z').collect {
+    _echo('T' + it)
+  }
 }
 
 def _sources() {
