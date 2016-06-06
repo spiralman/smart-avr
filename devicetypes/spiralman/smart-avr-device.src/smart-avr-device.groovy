@@ -306,6 +306,7 @@ def off() {
 }
 
 def _echo(command) {
+  log.debug "Echoing ${command}"
   new physicalgraph.device.HubAction(method: "GET",
                                      path: "/echo",
                                      headers: [
