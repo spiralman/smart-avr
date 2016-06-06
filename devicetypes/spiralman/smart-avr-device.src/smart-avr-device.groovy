@@ -226,7 +226,7 @@ def _parseMU(line) {
 def _parseTF(line) {
   log.debug "Parsing ${line}"
 
-  def freqText = line.substr(4, 8) + "." + line.substr(8)
+  def freqText = line.substring(4, 8) // + "." + line.substring(8)
   log.debug "Freq text is ${freqText}"
 
   // def freq = freqText.toFloat()
