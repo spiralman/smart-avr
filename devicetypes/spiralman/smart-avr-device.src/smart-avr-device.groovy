@@ -240,7 +240,7 @@ def parse(String description) {
   def msg = parseLanMessage(description)
   def events = []
 
-  log.debug "headers ${msg.headersAsString"
+  log.debug "headers ${msg.headersAsString}"
   log.debug "body ${msg.body}"
   log.debug "data ${msg.data}"
 
