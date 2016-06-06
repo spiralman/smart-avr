@@ -224,12 +224,10 @@ def _parseMU(line) {
 }
 
 def _parseTF(line) {
-  log.debug "Parsing ${line}"
 
   def freqText = line.substring(4, 8) + "." + line.substring(8)
-  log.debug "Freq text is ${freqText}"
-
   def freq = freqText.toFloat()
+
   log.debug "Freq is ${freq}"
   return createEvent(name: 'tuneFreq', value: freq)
 }
@@ -264,15 +262,8 @@ def parse(String description) {
       events << _parseMU(line)
     }
     else if (line.startsWith('TF')) {
-      log.debug "Parsing TF"
-      _parseTF(line)
+      events << _parseTF(line)
     }
-    // else if (line.startsWith('TF')) {
-    //   // SmartThings gets confused when the response starts with 'TF'
-    //   // and doesn't call parse, so we convert it to 'TX' at the proxy
-    //   _parseTF(line)
-    //   // events << _parseTF(line)
-    // }
     else {
       log.debug "Unknown line: ${line}"
     }
