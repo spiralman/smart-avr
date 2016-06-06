@@ -242,7 +242,7 @@ def _parseTF(line) {
 }
 
 def _parseTM(line) {
-  def band = line.substr(4)
+  def band = line.substring(4)
   log.debug "Tuner on band ${band}"
 
   return createEvent(name: 'tuneBand', value: band)
