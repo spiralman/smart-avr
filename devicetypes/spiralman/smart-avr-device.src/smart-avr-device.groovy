@@ -283,7 +283,7 @@ def parse(String description) {
     else if (line.startsWith('MU')) {
       events << _parseMU(line)
     }
-    else if (line.startsWith('TF')) {
+    else if (line.startsWith('TF') && line.substr(4).isNumber()) {
       events << _parseTF(line)
     }
     else if (line.startsWith('TM')) {
