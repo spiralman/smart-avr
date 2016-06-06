@@ -35,6 +35,10 @@ metadata {
     command "tuneBandFM"
     command "tuneBandAM"
     attribute "tuneBand", "enum", ["AM", "FM"]
+
+    command "tuneAutoOn"
+    command "tuneAutoOff"
+    attribute "tuneAutoMode", "enum", ["AUTO", "MANUAL"]
   }
 
   preferences {
@@ -137,8 +141,8 @@ metadata {
 
     standardTile("tuneBand", "device.tuneBand", inactiveLabel: false,
                  decoration: "flat", width: 1, height: 1) {
-      state "AM", label: "AM", action: "tuneBandFM"
-      state "FM", label: "FM", action: "tuneBandAM"
+      state "AM", label: "AM", action: "tuneBandFM", icon: "st.Electronics.electronics10"
+      state "FM", label: "FM", action: "tuneBandAM", icon: "st.Electronics.electronics10"
     }
 
     standardTile("tuneDown", "device.tuneDown", inactiveLabel: false,
@@ -153,6 +157,12 @@ metadata {
     standardTile("tuneUp", "device.tuneUp", inactiveLabel: false,
                  decoration: "flat") {
       state "default", action:"tuneUp", icon:"st.thermostat.thermostat-up"
+    }
+
+    standardTile("tuneAutoMode", "device.tuneAutoMode", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "AUTO", label: "Auto", action: "tuneAutoOff"
+      state "MANUAL", label: "Manual", action: "tuneAutoOn"
     }
 
     main "dashboard"
@@ -243,9 +253,16 @@ def _parseTF(line) {
 
 def _parseTM(line) {
   def band = line.substring(4)
-  log.debug "Tuner on band ${band}"
+  if (band in ['FM', 'AM']) {
+    log.debug "Tuner on band ${band}"
 
-  return createEvent(name: 'tuneBand', value: band)
+    return createEvent(name: 'tuneBand', value: band)
+  }
+  else if (band in ['AUTO', 'MANUAL']) {
+    log.debug "Tuner auto mode: ${band}"
+
+    return createEvent(name: 'tuneAutoMode', value: band)
+  }
 }
 
 // parse events into attributes
@@ -497,6 +514,14 @@ def tuneBandAM() {
 
 def tuneBandFM() {
   return _avrCommand("TMANFM")
+}
+
+def tuneAutoOn() {
+  return _avrCommand("TMANAUTO")
+}
+
+def tuneAutoOff() {
+  return _avrCommand("TMANMANUAL")
 }
 
 // Just copy pasted from SmartThings docs :-(
