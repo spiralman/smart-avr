@@ -168,19 +168,9 @@ metadata {
     main "dashboard"
     details(["dashboard", "refresh",
              "sourceDown", "sourceUp", "mute",
-             "BD",
-             "SATCBL",
-             "TV",
-             "NETUSB",
-             "DVD",
-             "VAUX",
-             "DOCK",
-             "TUNER",
-             "GAME1",
-             "GAME2",
-             "DVR",
-             "CD",
-             "tuneBand", "tuneDown", "tuneFreq", "tuneUp"
+             "BD", "SATCBL", "TV", "NETUSB", "DVD", "VAUX",
+             "DOCK", "TUNER", "GAME1", "GAME2", "DVR", "CD",
+             "tuneBand", "tuneDown", "tuneFreq", "tuneUp", "tuneAutoMode"
             ])
   }
 }
