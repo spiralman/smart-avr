@@ -31,6 +31,10 @@ metadata {
     command "tuneDown"
     command "tuneUp"
     attribute "tuneFreq", "number"
+
+    command "tuneBandFM"
+    command "tuneBandAM"
+    attribute "tuneBand", "enum", ["AM", "FM"]
   }
 
   preferences {
@@ -131,6 +135,12 @@ metadata {
       state "default", label: "CD", action: "sourceCD", icon: "st.Electronics.electronics1"
     }
 
+    standardTile("tuneBand", "device.tuneBand", inactiveLabel: false,
+                 decoration: "flat", width: 1, height: 1) {
+      state "AM", label: "AM", action: "tuneBandFM"
+      state "FM", label: "FM", action: "tuneBandAM"
+    }
+
     standardTile("tuneDown", "device.tuneDown", inactiveLabel: false,
                  decoration: "flat") {
       state "default", action:"tuneDown", icon:"st.thermostat.thermostat-down"
@@ -160,7 +170,7 @@ metadata {
              "GAME2",
              "DVR",
              "CD",
-             "tuneDown", "tuneFreq", "tuneUp"
+             "tuneBand", "tuneDown", "tuneFreq", "tuneUp"
             ])
   }
 }
@@ -224,7 +234,6 @@ def _parseMU(line) {
 }
 
 def _parseTF(line) {
-
   def freqText = line.substring(4, 8) + "." + line.substring(8)
   def freq = freqText.toFloat()
 
@@ -232,9 +241,15 @@ def _parseTF(line) {
   return createEvent(name: 'tuneFreq', value: freq)
 }
 
+def _parseTM(line) {
+  def band = line.substr(4)
+  log.debug "Tuner on band ${band}"
+
+  return createEvent(name: 'tuneBand', value: band)
+}
+
 // parse events into attributes
 def parse(String description) {
-  log.debug "Got message ${description}"
   def msg = parseLanMessage(description)
   def events = []
 
@@ -243,7 +258,7 @@ def parse(String description) {
     throw new Exception()
   }
 
-  if (msg.body == null || msg.body.size() == 0) {
+  if (msg.body == null) {
     log.debug "Empty message"
     return []
   }
@@ -263,6 +278,9 @@ def parse(String description) {
     }
     else if (line.startsWith('TF')) {
       events << _parseTF(line)
+    }
+    else if (line.startsWith('TM')) {
+      events << _parseTM(line)
     }
     else {
       log.debug "Unknown line: ${line}"
@@ -303,13 +321,13 @@ def off() {
 }
 
 def refresh() {
-  // getAllActivities()
-  // return [_avrCommand("PW?"),
-  //         _avrCommand("MV?"),
-  //         _avrCommand("MU?"),
-  //         _avrCommand("TFAN?"),
-  //         getCurrentActivity()]
-  return _avrCommand("TFAN?")
+  getAllActivities()
+  return [_avrCommand("PW?"),
+          _avrCommand("MV?"),
+          _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
+          _avrCommand("TMAN?"),
+          getCurrentActivity()]
 }
 
 def _sources() {
@@ -471,6 +489,14 @@ def tuneUp() {
 
 def tuneDown() {
     return _avrCommand("TFANDOWN")
+}
+
+def tuneBandAM() {
+  return _avrCommand("TMANAM")
+}
+
+def tuneBandFM() {
+  return _avrCommand("TMANFM")
 }
 
 // Just copy pasted from SmartThings docs :-(
