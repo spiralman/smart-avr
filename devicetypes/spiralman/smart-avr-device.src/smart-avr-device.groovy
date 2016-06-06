@@ -224,14 +224,14 @@ def _parseMU(line) {
 }
 
 def _parseTF(line) {
-  log.debug "Parsing ${line}"
+  // log.debug "Parsing ${line}"
 
-  def freqText = line.substr(4, 8) << "." << line.substr(8)
-  log.debug "Freq text is ${freqText}"
+  // def freqText = line.substr(4, 8) << "." << line.substr(8)
+  // log.debug "Freq text is ${freqText}"
 
-  def freq = freqText.toFloat()
-  log.debug "Freq is ${freq}"
-  return createEvent(name: 'tuneFreq', value: freq)
+  // def freq = freqText.toFloat()
+  // log.debug "Freq is ${freq}"
+  // return createEvent(name: 'tuneFreq', value: freq)
 }
 
 // parse events into attributes
@@ -265,6 +265,7 @@ def parse(String description) {
     }
     else if (line.startsWith('TF')) {
       log.debug "Parsing TF"
+      _parseTF(line)
     }
     // else if (line.startsWith('TF')) {
     //   // SmartThings gets confused when the response starts with 'TF'
