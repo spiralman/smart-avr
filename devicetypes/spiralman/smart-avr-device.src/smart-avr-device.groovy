@@ -263,7 +263,7 @@ def parse(String description) {
     else if (line.startsWith('MU')) {
       events << _parseMU(line)
     }
-    else if (line.startsWith('TX')) {
+    else if (line.startsWith('XX')) {
       // SmartThings gets confused when the response starts with 'TF'
       // and doesn't call parse, so we convert it to 'TX' at the proxy
       events << _parseTF(line)
