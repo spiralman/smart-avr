@@ -137,7 +137,7 @@ metadata {
     }
 
     valueTile("tuneFreq", "device.tuneFreq", decoration: "flat", width: 2) {
-      state "default", label: '${currentValue} MHz\nTuner'
+      state "default", label: '${currentValue} kHz'
     }
 
     standardTile("tuneUp", "device.tuneUp", inactiveLabel: false,
@@ -463,6 +463,14 @@ def mute() {
 
 def unmute() {
   return _avrCommand("MUOFF")
+}
+
+def tuneUp() {
+  return _avrCommand("TFANUP")
+}
+
+def tuneDown() {
+    return _avrCommand("TFANDOWN")
 }
 
 // Just copy pasted from SmartThings docs :-(
