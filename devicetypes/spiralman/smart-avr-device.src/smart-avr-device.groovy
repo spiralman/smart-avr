@@ -236,19 +236,16 @@ def _parseTF(line) {
 
 // parse events into attributes
 def parse(String description) {
-  // log.debug "Got message ${description}"
+  log.debug "Got message ${description}"
   def msg = parseLanMessage(description)
   def events = []
-
-  log.debug "Got echo ${msg.body}"
-  return
 
   if (msg.status > 299) {
     log.error "Got error: ${msg.body}"
     throw new Exception()
   }
 
-  if (msg.body == null) {
+  if (msg.body == null || msg.body.size() == 0) {
     log.debug "Empty message"
     return []
   }
@@ -328,10 +325,10 @@ def refresh() {
   //         getCurrentActivity()]
 
 
-  // return _avrCommand("TFAN?")
-  return ('A'..'Z').collect {
-    _echo('T' + it)
-  }
+  return _avrCommand("TFAN?")
+  // return ('A'..'Z').collect {
+  //   _echo('T' + it)
+  // }
 }
 
 def _sources() {
