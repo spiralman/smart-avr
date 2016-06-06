@@ -240,10 +240,6 @@ def parse(String description) {
   def msg = parseLanMessage(description)
   def events = []
 
-  log.debug "headers ${msg.headersAsString}"
-  log.debug "body ${msg.body}"
-  log.debug "data ${msg.data}"
-
   if (msg.status > 299) {
     log.error "Got error: ${msg.body}"
     throw new Exception()
@@ -267,8 +263,9 @@ def parse(String description) {
     else if (line.startsWith('MU')) {
       events << _parseMU(line)
     }
-    else if (line.startsWith('TF')) {
-      log.debug "Found TF"
+    else if (line.startsWith('TX')) {
+      // SmartThings gets confused when the response starts with 'TF'
+      // and doesn't call parse, so we convert it to 'TX' at the proxy
       events << _parseTF(line)
     }
     else {
@@ -309,30 +306,13 @@ def off() {
   return _avrCommand("PWSTANDBY")
 }
 
-def _echo(command) {
-  log.debug "Echoing ${command}"
-  new physicalgraph.device.HubAction(method: "GET",
-                                     path: "/echo",
-                                     headers: [
-                                       HOST: getHostAddress()
-                                     ],
-                                     query: [cmd: command]
-                                    )
-}
-
 def refresh() {
-  // getAllActivities()
-  // return [_avrCommand("PW?"),
-  //         _avrCommand("MV?"),
-  //         _avrCommand("MU?"),
-  //         _avrCommand("TFAN?"),
-  //         getCurrentActivity()]
-
-
-  return _avrCommand("TFAN?")
-  // return ('A'..'Z').collect {
-  //   _echo('T' + it)
-  // }
+  getAllActivities()
+  return [_avrCommand("PW?"),
+          _avrCommand("MV?"),
+          _avrCommand("MU?"),
+          _avrCommand("TFAN?"),
+          getCurrentActivity()]
 }
 
 def _sources() {
