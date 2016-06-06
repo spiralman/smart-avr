@@ -224,7 +224,7 @@ def _parseMU(line) {
 }
 
 def _parseTF(line) {
-  // log.debug "Parsing ${line}"
+  log.debug "Parsing ${line}"
 
   // def freqText = line.substr(4, 8) << "." << line.substr(8)
   // log.debug "Freq text is ${freqText}"
