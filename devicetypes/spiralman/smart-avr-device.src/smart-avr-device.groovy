@@ -240,6 +240,10 @@ def parse(String description) {
   def msg = parseLanMessage(description)
   def events = []
 
+  log.debug "headers ${msg.headersAsString"
+  log.debug "body ${msg.body}"
+  log.debug "data ${msg.data}"
+
   if (msg.status > 299) {
     log.error "Got error: ${msg.body}"
     throw new Exception()
